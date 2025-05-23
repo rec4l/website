@@ -51,9 +51,9 @@
             </main>
         </div>
     </div>
-    <div class="sticker sticker-top-left">
+    <div class="sticker sticker-bottom-right">
+        
     </div>
-
     <script src="script.js"></script>
     <script>
     // Draggable stickers with momentum and bounce
@@ -117,8 +117,8 @@ document.querySelectorAll('.sticker').forEach(sticker => {
       if (top < 0) { top = 0; vy = -vy * 0.7; }
       if (top + height > winH) { top = winH - height; vy = -vy * 0.7; }
       // Friction
-      vx *= 0.995;
-      vy *= 0.995;
+      vx *= 0.997;
+      vy *= 0.997;
       sticker.style.left = left + 'px';
       sticker.style.top = top + 'px';
       sticker.style.right = 'auto';
@@ -158,6 +158,61 @@ document.querySelectorAll('.sticker').forEach(sticker => {
     if (rafId) cancelAnimationFrame(rafId);
   });
 });
+
+document.addEventListener('contextmenu', function(e) {
+  e.preventDefault(); // prevent right-click menu
+
+  document.querySelectorAll('.sticker').forEach(sticker => {
+    let stickerRect = sticker.getBoundingClientRect();
+    let winW = window.innerWidth;
+    let winH = window.innerHeight;
+
+    // Get current position
+    let left = parseFloat(sticker.style.left || stickerRect.left);
+    let top = parseFloat(sticker.style.top || stickerRect.top);
+
+    // Random speed and direction
+    const speed = 20 + Math.random() * 10;
+    const angle = Math.random() * 2 * Math.PI;
+    let vx = Math.cos(angle) * speed;
+    let vy = Math.sin(angle) * speed;
+
+    // Cancel any current animation
+    let rafId = sticker._rafId;
+    if (rafId) cancelAnimationFrame(rafId);
+
+    // Animate momentum
+    function animate() {
+      left += vx;
+      top += vy;
+
+      if (left < 0) { left = 0; vx = -vx * 0.7; }
+      if (left + stickerRect.width > winW) { left = winW - stickerRect.width; vx = -vx * 0.7; }
+      if (top < 0) { top = 0; vy = -vy * 0.7; }
+      if (top + stickerRect.height > winH) { top = winH - stickerRect.height; vy = -vy * 0.7; }
+
+      vx *= 0.995;
+      vy *= 0.995;
+
+      sticker.style.left = left + 'px';
+      sticker.style.top = top + 'px';
+      sticker.style.right = 'auto';
+      sticker.style.bottom = 'auto';
+      sticker.style.position = 'fixed';
+
+      if (Math.abs(vx) > 0.5 || Math.abs(vy) > 0.5) {
+        sticker._rafId = requestAnimationFrame(animate);
+      } else {
+        sticker._rafId = null;
+      }
+    }
+
+    sticker._rafId = requestAnimationFrame(animate);
+  });
+});
+
+
+
     </script>
 </body>
 </html>

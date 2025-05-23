@@ -24,9 +24,10 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     position: relative;
-    z-index: 1;
+    z-index: 2;
     padding-left: 24px;
     padding-right: 24px;
+
 }
 .left-content, .right-content {
     display: flex;
@@ -511,8 +512,8 @@ body::before {
 /* Stickers: fun floating images or emoji */
 .sticker {
   position: fixed;
-  z-index: 1001;
-  font-size: 2.2rem;
+  z-index: 1;
+  font-size: 5.2rem;
   pointer-events: auto;
   user-select: none;
   opacity: 0.92;
