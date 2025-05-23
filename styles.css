@@ -27,6 +27,8 @@ body {
     transition: box-shadow 0.3s cubic-bezier(0.4,0,0.2,1), background 0.3s cubic-bezier(0.4,0,0.2,1);
     position: relative;
     z-index: 1;
+    padding-left: 24px;
+    padding-right: 24px;
 }
 .left-content, .right-content {
     display: flex;
@@ -453,25 +455,56 @@ body::before {
 }
 
 @media (max-width: 900px) {
+  .container {
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    padding-top: 48px;
+    padding-bottom: 48px;
+    min-height: 100vh;
+    padding-left: 4vw;
+    padding-right: 4vw;
+  }
   .left-content, .right-content {
     width: 100%;
     max-width: 700px;
-    margin: 16px auto;
-    padding: 40px 10vw;
+    margin: 32px auto !important;
+    padding: 36px 6vw;
     box-sizing: border-box;
   }
   .right-content {
-    padding-top: 40px;
-    padding-bottom: 40px;
+    padding-top: 32px;
+    padding-bottom: 16px;
   }
 }
 
 @media (max-width: 600px) {
-  .left-content, .right-content {
-    padding: 32px 5vw;
-    margin: 14px auto;
-  }
   .container {
-    padding: 0 1vw;
+    padding-top: 18px;
+    padding-bottom: 18px;
+    min-height: 100vh;
+    padding-left: 3vw;
+    padding-right: 3vw;
+  }
+  .left-content, .right-content {
+    padding: 20px 2vw;
+    margin: 18px auto !important;
+    border-radius: 12px;
+    box-shadow: 0 1px 6px rgba(80,110,160,0.10);
+  }
+  .right-content {
+    padding-bottom: 8px;
+  }
+  .profile-pic {
+    width: 90px;
+    height: 90px;
+    margin-bottom: 14px;
+  }
+  header h1 {
+    font-size: 1.5rem;
+  }
+  .social-icons {
+    gap: 12px;
+    min-height: 40px;
   }
 }
