@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>jonathan</title>
+    <title>jonathan :)</title>
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -13,7 +13,7 @@
         <div class="left-content">
             <header>
                 <img src="profile.jpg" alt="profile picture" class="profile-pic">
-                <h1>jonathan nguyen</h1>
+                <h1>jonathan :)</h1>
                 <p class="email"><a href="mailto:jmpnguyen04@gmail.com">jmpnguyen04@gmail.com</a></p>
                 <div class="social-icons">
                     <a href="https://x.com/r3c4l" title="twitter" target="_blank"><i class="fab fa-twitter"></i></a>
@@ -24,29 +24,139 @@
             </header>
         </div>
         <div class="right-content">
-            <!--
             <nav class="hotbar">
                 <ul>
                     <li><a href="#home">home</a></li>
-                    <li><a href="gallery.html">gallery</a></li>
+                    <li><a href="about.html">about</a></li>
                 </ul>
             </nav>
-            -->
             <main>
                 <section id="about">
                     <h2>about</h2>
                     <p>
-                       21 y/o undergrad with interests in math, computer science, fps games, and music.
+                       21 y/o undergrad with interests in math, computer science, fps games, and music
                     </p>
                 </section>
                 <section id="education">
                     <h2>education</h2>
-                    <div>uc san diego – b.s. mathematics - computer science (expected 2026)</div>
+                    <div>uc san diego – b.s. mathematics - computer science (expected 2026)</div><br>
                     <div>relevant coursework: algorithms, data structures, linear algebra, probability, software engineering</div>
                 </section>
+
+                <section id="experience">
+                    <h2>experience</h2>
+                    <p>project euler</p>
+                    <p>solved 50+ problems on project euler, a collection of challenging mathematical/computer programming problems</p>
             </main>
         </div>
     </div>
+    <div class="sticker sticker-top-left">
+    </div>
+
     <script src="script.js"></script>
+    <script>
+    // Draggable stickers with momentum and bounce
+function clamp(val, min, max) { return Math.max(min, Math.min(max, val)); }
+document.querySelectorAll('.sticker').forEach(sticker => {
+  let offsetX, offsetY, isDragging = false, lastX, lastY, vx = 0, vy = 0, rafId;
+  let stickerRect, winW, winH;
+
+  function updateWin() {
+    winW = window.innerWidth;
+    winH = window.innerHeight;
+    stickerRect = sticker.getBoundingClientRect();
+  }
+
+  function onMove(e) {
+    if (!isDragging) return;
+    let clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    let clientY = e.touches ? e.touches[0].clientY : e.clientY;
+    let left = clientX - offsetX;
+    let top = clientY - offsetY;
+    sticker.style.left = left + 'px';
+    sticker.style.top = top + 'px';
+    sticker.style.right = 'auto';
+    sticker.style.bottom = 'auto';
+    sticker.style.position = 'fixed';
+    // Calculate velocity
+    if (typeof lastX === 'number' && typeof lastY === 'number') {
+      vx = clientX - lastX;
+      vy = clientY - lastY;
+    }
+    lastX = clientX;
+    lastY = clientY;
+  }
+
+  function onUp() {
+    if (isDragging) {
+      isDragging = false;
+      sticker.style.transition = '';
+      sticker.style.zIndex = 1001;
+      document.removeEventListener('mousemove', onMove);
+      document.removeEventListener('mouseup', onUp);
+      document.removeEventListener('touchmove', onMove);
+      document.removeEventListener('touchend', onUp);
+      lastX = lastY = undefined;
+      animateMomentum();
+    }
+  }
+
+  function animateMomentum() {
+    updateWin();
+    let left = parseFloat(sticker.style.left || stickerRect.left);
+    let top = parseFloat(sticker.style.top || stickerRect.top);
+    let width = stickerRect.width;
+    let height = stickerRect.height;
+    function step() {
+      left += vx;
+      top += vy;
+      // Bounce off edges
+      if (left < 0) { left = 0; vx = -vx * 0.7; }
+      if (left + width > winW) { left = winW - width; vx = -vx * 0.7; }
+      if (top < 0) { top = 0; vy = -vy * 0.7; }
+      if (top + height > winH) { top = winH - height; vy = -vy * 0.7; }
+      // Friction
+      vx *= 0.995;
+      vy *= 0.995;
+      sticker.style.left = left + 'px';
+      sticker.style.top = top + 'px';
+      sticker.style.right = 'auto';
+      sticker.style.bottom = 'auto';
+      sticker.style.position = 'fixed';
+      if (Math.abs(vx) > 0.5 || Math.abs(vy) > 0.5) {
+        rafId = requestAnimationFrame(step);
+      } else {
+        vx = vy = 0;
+        rafId = null;
+      }
+    }
+    if (rafId) cancelAnimationFrame(rafId);
+    rafId = requestAnimationFrame(step);
+  }
+
+  sticker.addEventListener('mousedown', function(e) {
+    isDragging = true;
+    updateWin();
+    offsetX = e.clientX - sticker.getBoundingClientRect().left;
+    offsetY = e.clientY - sticker.getBoundingClientRect().top;
+    sticker.style.transition = 'none';
+    sticker.style.zIndex = 2000;
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onUp);
+    if (rafId) cancelAnimationFrame(rafId);
+  });
+  sticker.addEventListener('touchstart', function(e) {
+    isDragging = true;
+    updateWin();
+    offsetX = e.touches[0].clientX - sticker.getBoundingClientRect().left;
+    offsetY = e.touches[0].clientY - sticker.getBoundingClientRect().top;
+    sticker.style.transition = 'none';
+    sticker.style.zIndex = 2000;
+    document.addEventListener('touchmove', onMove);
+    document.addEventListener('touchend', onUp);
+    if (rafId) cancelAnimationFrame(rafId);
+  });
+});
+    </script>
 </body>
 </html>

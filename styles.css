@@ -35,9 +35,9 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: rgba(255,255,255,0.82);
+    background: rgba(255,255,255, 0.2);
     color: #232526;
-    border-radius: 18px;
+    border-radius: 16px;
     box-shadow: 0 2px 16px 0 rgba(80,110,160,0.07);
     margin: 0 16px;
     padding: 32px 24px;
@@ -45,7 +45,7 @@ body {
     transition: transform 0.4s cubic-bezier(0.4,0,0.2,1), box-shadow 0.3s cubic-bezier(0.4,0,0.2,1), background 0.3s cubic-bezier(0.4,0,0.2,1);
 }
 .left-content {
-    width: 52%;
+    width: 40%;
     min-width: 280px;
     max-width: 520px;
 }
@@ -54,16 +54,15 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 48%;
+    width: 60%;
     min-width: 220px;
     max-width: 540px;
     height: auto;
-    background: #fff;
     color: #232526;
     border-radius: 16px;
     box-shadow: 0 2px 12px rgba(0,0,0,0.08);
     margin: 0 16px;
-    padding: 48px 40px 40px 40px;
+    padding: 40px;
     box-sizing: border-box;
     transition: box-shadow 0.2s, background 0.2s;
 }
@@ -241,7 +240,7 @@ footer {
     height: 120px;
     object-fit: cover;
     border-radius: 50%;
-    border: 3px solid #232526;
+    border: 2px solid #232526;
     margin-bottom: 20px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.4);
     display: block;
@@ -426,7 +425,7 @@ footer {
 
 /* soft, modern background gradient */
 body {
-    background: linear-gradient(120deg, #e6ecf5 0%, #c7e0ff 100%);
+    background: linear-gradient(120deg, #bdd8ff 0%, #ffcfcf 100%);
     min-height: 100vh;
 }
 
@@ -506,5 +505,39 @@ body::before {
   .social-icons {
     gap: 12px;
     min-height: 40px;
+  }
+}
+
+/* Stickers: fun floating images or emoji */
+.sticker {
+  position: fixed;
+  z-index: 1001;
+  font-size: 2.2rem;
+  pointer-events: auto;
+  user-select: none;
+  opacity: 0.92;
+  filter: drop-shadow(0 2px 8px rgba(80,110,160,0.10));
+  transition: transform 0.2s;
+  cursor: grab;
+}
+.sticker-top-left {
+  top: 18px;
+  left: 18px;
+}
+.sticker-bottom-right {
+  bottom: 18px;
+  right: 18px;
+}
+@media (max-width: 600px) {
+  .sticker {
+    font-size: 1.4rem;
+  }
+  .sticker-top-left {
+    top: 8px;
+    left: 8px;
+  }
+  .sticker-bottom-right {
+    bottom: 8px;
+    right: 8px;
   }
 }
