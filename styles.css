@@ -1,29 +1,28 @@
 @import url('https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700&display=swap');
+body, html {
+    height: 100%;
+}
 body {
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
     min-height: 100vh;
+    height: 100vh;
+    overflow: hidden;
     margin: 0;
+    padding: 0;
     font-family: 'Source Code Pro', 'Consolas', 'Menlo', 'Monaco', 'Liberation Mono', 'Courier New', monospace;
     background: linear-gradient(120deg, #e6ecf5 0%, #c7e0ff 100%);
     color: #232526;
-    padding-top: 56px; /* Added padding to prevent overlap with hotbar */
-    opacity: 0;
-    animation: body-fade-in 0.8s cubic-bezier(0.4,0,0.2,1) forwards;
-}
-@keyframes body-fade-in {
-  to { opacity: 1; }
 }
 .container {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    min-height: 100vh;
+    min-height: 70vh;
+    width: 100%;
     max-width: 1200px;
-    width: 80vw;
     margin: 0 auto;
     transition: box-shadow 0.3s cubic-bezier(0.4,0,0.2,1), background 0.3s cubic-bezier(0.4,0,0.2,1);
     position: relative;
@@ -161,7 +160,6 @@ header {
 header h1 {
     margin: 0;
     font-size: 2.5rem;
-    letter-spacing: 2px;
     text-align: center;
     margin-left: 0;
     width: 100%;
@@ -183,7 +181,7 @@ header p {
     color: #232526;
     font-size: 1.7rem;
     transition: color 0.2s, transform 0.2s;
-    padding: 8px 8px 12px 8px; /* extra bottom padding */
+    padding: 8px 8px 8px 8px; /* extra bottom padding */
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -445,4 +443,43 @@ body::before {
 .container {
     position: relative;
     z-index: 1;
+}
+
+@media (max-width: 800px) {
+    .container {
+        flex-direction: column;
+        min-height: 80vh;
+    }
+}
+
+@media (max-width: 900px) {
+  .container {
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    min-height: 90vh;
+    max-width: 98vw;
+    padding: 0 4vw;
+  }
+  .left-content, .right-content {
+    width: 100%;
+    max-width: 600px;
+    margin: 16px auto;
+    padding: 32px 8vw;
+    box-sizing: border-box;
+  }
+  .right-content {
+    padding-top: 32px;
+    padding-bottom: 32px;
+  }
+}
+
+@media (max-width: 600px) {
+  .left-content, .right-content {
+    padding: 24px 2vw;
+    margin: 10px auto;
+  }
+  .container {
+    padding: 0 0.5vw;
+  }
 }
